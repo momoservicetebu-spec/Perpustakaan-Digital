@@ -280,18 +280,17 @@
       </svg></a>
     </div>
    </div>
-   <p data-template-id="footer-text" class="canva-text text-sm" style="color: rgb(214, 211, 209); font-weight: 400; font-style: normal; font-size: 16px;">© 2026 Perpustakaan Digital SMAN 1 Bumi Agung. Hak cipta dilindungi. Developed by Guntoro</p>
+   <p data-template-id="footer-text" class="canva-text text-sm" style="color: rgb(214, 211, 209); font-weight: 400; font-style: normal; font-size: 16px;">© 2026 Perpustakaan Digital (PD)Dikembangkan Oleh Guntoro/Danish ShoOp untuk kemajuan pendidikan Indonesia | Versi 1.1.0</p>
   </footer>
   
   <script>
     if (window.lucide) window.lucide.createIcons();
 
-    // === KONFIGURASI API BACK-END BARU ===
-    // Ganti URL ini dengan URL server backend/database Anda yang sebenarnya.
+    // === KONFIGURASI API GOOGLE APPS SCRIPT ===
+    // URL Web App dari Google Apps Script Anda (jangan diubah)
     const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbzwqdAugrYUPjAO5MGucqO6D9oqWTKtaZQTWHiDoiD57YzXQN-K3KQbGquncOSnISvH/exec'; 
-    // =====================================
+    // ==========================================
 
-    // State Data Terpisah (Standar Database Relasional)
     let books = [];
     let visits = [];
     let announcements = [];
@@ -299,12 +298,13 @@
     let currentCategory = '';
     let isAdminMode = false;
     let isAnnounceAdmin = false;
+    let currentAdminPin = "";
+    
     let pendingBook = null;
     let editingBook = null;
     let adminContext = ''; 
-    const ADMIN_PIN = '151190';
 
-    // Elemen DOM
+    // Elemen DOM (Tetap sama)
     const categoryView = document.getElementById('category-view');
     const detailView = document.getElementById('detail-view');
     const detailTitle = document.getElementById('detail-title');
@@ -330,31 +330,66 @@
     const searchInput = document.getElementById('search-input');
     const cards = document.querySelectorAll('.category-card');
 
-    // MENGAMBIL DATA DARI SERVER (GET)
+    // ========================================================
+    // 1. MENGAMBIL DATA DARI GOOGLE APPS SCRIPT (GET REQUEST)
+    // ========================================================
     async function loadData() {
         try {
-            // Mengambil ketiga tabel secara paralel
-            const [resBooks, resVisits, resAnnouncements] = await Promise.all([
-                fetch(`${API_BASE_URL}/books`),
-                fetch(`${API_BASE_URL}/visits`),
-                fetch(`${API_BASE_URL}/announcements`)
-            ]);
+            // Karena pakai GAS, cukup fetch ke satu URL dasar
+            const response = await fetch(API_BASE_URL);
+            const result = await response.json();
+            
+            // GAS mengembalikan { status: "success", data: { books: [], visits: [], announcements: [] } }
+            if (result.status === "success") {
+                books = result.data.books || [];
+                visits = result.data.visits || [];
+                announcements = result.data.announcements || [];
+                
+                // Urutkan pengumuman (terbaru di atas)
+                announcements.sort((a, b) => new Date(b.announcement_date) - new Date(a.announcement_date));
 
-            if (resBooks.ok) books = await resBooks.json();
-            if (resVisits.ok) visits = await resVisits.json();
-            if (resAnnouncements.ok) {
-                announcements = await resAnnouncements.json();
-                announcements.sort((a, b) => (b.announcement_date || '').localeCompare(a.announcement_date || ''));
+                updateStats();
+                renderAnnouncements();
+                if (!detailView.classList.contains('hidden')) renderBooks();
             }
-
-            updateStats();
-            renderAnnouncements();
-            if (!detailView.classList.contains('hidden')) renderBooks();
         } catch (error) {
-            console.error("Gagal terhubung ke Back-End:", error);
+            console.error("Gagal terhubung ke Database Google Sheets:", error);
         }
     }
 
+    // ========================================================
+    // 2. MENGIRIM DATA KE GOOGLE APPS SCRIPT (POST REQUEST)
+    // ========================================================
+    async function sendDataToGAS(action, payload) {
+        try {
+            const requestData = {
+                action: action,     // Beri tahu backend apa yang harus dilakukan ('addBook', 'deleteBook', dll)
+                data: payload,      // Data isi (judul, penulis, dll)
+                pin: currentAdminPin // PIN Admin (jika action butuh PIN)
+            };
+
+            const response = await fetch(API_BASE_URL, {
+                method: 'POST',
+                // Mode 'no-cors' kadang diperlukan jika GAS memblokir permintaan lintas domain
+                // headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestData)
+            });
+            
+            const result = await response.json();
+            
+            if (result.status === "error") {
+                alert("GAGAL: " + result.message);
+                return false;
+            }
+            return true;
+        } catch (error) {
+            console.error("Error mengirim data:", error);
+            alert("Terjadi kesalahan koneksi.");
+            return false;
+        }
+    }
+
+    // --- FUNGSI RENDER TAMPILAN (UI) ---
     function updateStats() {
       renderLeaderboard(visits);
       document.getElementById('stat-total-count').textContent = visits.length;
@@ -409,23 +444,25 @@
         wrapper.querySelector('[data-template-id="announcement-card-content"]').textContent = item.announcement_content || '';
         
         const delBtn = wrapper.querySelector('.announcement-delete-btn');
-        delBtn.innerHTML = 'Hapus'; // Add text or icon for delete
+        delBtn.innerHTML = 'Hapus';
+        delBtn.className = "canva-button announcement-delete-btn shrink-0 px-3 py-1 bg-red-600 text-white rounded-lg text-sm";
         if (isAnnounceAdmin) delBtn.classList.remove('hidden');
         
-        // HAPUS PENGUMUMAN (DELETE)
+        // HAPUS PENGUMUMAN
         delBtn.addEventListener('click', async () => {
           if(!confirm("Yakin ingin menghapus pengumuman ini?")) return;
           delBtn.disabled = true;
-          try {
-              const res = await fetch(`${API_BASE_URL}/announcements/${item.id}`, { method: 'DELETE' });
-              if (res.ok) await loadData();
-          } catch(e) { console.error(e); }
+          delBtn.textContent = "Menghapus...";
+          
+          // Gunakan fungsi sendDataToGAS yang baru
+          const success = await sendDataToGAS('deleteAnnouncement', { id: item.id });
+          if(success) loadData(); // Segarkan data jika berhasil
         });
         announcementList.appendChild(clone);
       });
     }
 
-    // Modal Admin
+    // Modal Admin Logika
     function showAdminModal(context) {
       adminContext = context;
       adminModal.classList.remove('hidden');
@@ -434,38 +471,56 @@
       adminPinInput.focus();
     }
 
-    adminToggleBtn.addEventListener('click', () => showAdminModal('book'));
-    announceAdminBtn.addEventListener('click', () => showAdminModal('announce'));
+    adminToggleBtn.addEventListener('click', () => {
+        if(isAdminMode) {
+            isAdminMode = false;
+            currentAdminPin = "";
+            adminFormContainer.classList.add('hidden');
+            adminToggleBtn.classList.remove('text-amber-700');
+            renderBooks();
+        } else showAdminModal('book');
+    });
+
+    announceAdminBtn.addEventListener('click', () => {
+        if(isAnnounceAdmin) {
+            isAnnounceAdmin = false;
+            currentAdminPin = "";
+            announceFormContainer.classList.add('hidden');
+            announceAdminBtn.classList.remove('text-amber-700');
+            renderAnnouncements();
+        } else showAdminModal('announce');
+    });
+
     adminCancelBtn.addEventListener('click', () => { adminModal.classList.add('hidden'); });
     
     adminSubmitBtn.addEventListener('click', () => {
-      if (adminPinInput.value.trim() === ADMIN_PIN) {
+      const inputPin = adminPinInput.value.trim();
+      if (inputPin !== "") {
+        // Simpan PIN ke variabel global, jangan divalidasi langsung di sini (validasi nanti di GAS)
+        currentAdminPin = inputPin; 
         adminModal.classList.add('hidden');
+        
         if (adminContext === 'book') {
-          isAdminMode = !isAdminMode;
-          adminFormContainer.classList.toggle('hidden', !isAdminMode);
-          adminToggleBtn.classList.toggle('text-amber-700', isAdminMode);
+          isAdminMode = true;
+          adminFormContainer.classList.remove('hidden');
+          adminToggleBtn.classList.add('text-amber-700');
           renderBooks();
         } else {
-          isAnnounceAdmin = !isAnnounceAdmin;
-          announceFormContainer.classList.toggle('hidden', !isAnnounceAdmin);
-          announceAdminBtn.classList.toggle('text-amber-700', isAnnounceAdmin);
+          isAnnounceAdmin = true;
+          announceFormContainer.classList.remove('hidden');
+          announceAdminBtn.classList.add('text-amber-700');
           renderAnnouncements();
         }
-      } else {
-        adminError.classList.remove('hidden');
-        adminError.textContent = 'PIN salah';
-        adminPinInput.value = '';
-        adminPinInput.focus();
       }
     });
     adminPinInput.addEventListener('keypress', e => { if (e.key === 'Enter') adminSubmitBtn.click(); });
 
-    // TAMBAH PENGUMUMAN BARU (POST)
+    // TAMBAH PENGUMUMAN BARU 
     announceForm.addEventListener('submit', async e => {
       e.preventDefault();
       const submitBtn = announceForm.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
+      submitBtn.textContent = "Menyimpan...";
       
       const payload = {
         announcement_title: document.getElementById('announce-title-input').value.trim(),
@@ -473,21 +528,14 @@
         announcement_date: new Date().toISOString()
       };
 
-      try {
-          const res = await fetch(`${API_BASE_URL}/announcements`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
-          });
-          if (res.ok) {
-              announceForm.reset();
-              await loadData();
-          }
-      } catch (err) {
-          console.error(err);
-      } finally {
-          submitBtn.disabled = false;
+      // Panggil server GAS via POST
+      const success = await sendDataToGAS('addAnnouncement', payload);
+      if (success) {
+          announceForm.reset();
+          loadData(); // Tarik data terbaru
       }
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Publikasikan";
     });
 
     // Navigasi Kategori
@@ -537,7 +585,7 @@
 
     function renderBooks() {
       const query = bookSearchInput.value.trim().toLowerCase();
-      const filtered = books.filter(b => b.category === currentCategory && (!query || [b.title, b.author, b.publisher, b.year].some(value => (value || '').toLowerCase().includes(query))));
+      const filtered = books.filter(b => b.category === currentCategory && (!query || [b.title, b.author, b.publisher, b.year].some(value => (value || '').toString().toLowerCase().includes(query))));
       
       if (filtered.length === 0) { bookList.innerHTML = ''; emptyBooks.classList.remove('hidden'); return; }
       emptyBooks.classList.add('hidden');
@@ -551,45 +599,33 @@
         wrapper.querySelector('[data-template-id="book-card-title"]').textContent = book.title;
         wrapper.querySelector('[data-template-id="book-card-meta"]').textContent = `${book.author} • ${book.year || '-'}`;
         
-        // Action: Read
+        // Tombol: Baca
         const readBtn = wrapper.querySelector('.read-btn');
         readBtn.innerHTML = 'Baca Buku'; 
+        readBtn.className = "canva-button flex items-center gap-1 px-4 py-2 bg-amber-600 text-white rounded-lg font-medium text-sm";
         readBtn.addEventListener('click', () => {
           pendingBook = book;
           visitorModal.classList.remove('hidden');
           document.getElementById('visitor-name-input').focus();
         });
 
-        // Action: Edit
+        // Hapus Fitur Edit Sementara (Lebih aman diedit manual di Sheet)
         const editBtn = wrapper.querySelector('.edit-btn');
-        editBtn.innerHTML = 'Edit';
-        if (isAdminMode) {
-          editBtn.classList.remove('hidden');
-          editBtn.style.display = 'inline-flex';
-        }
-        editBtn.addEventListener('click', () => {
-          editingBook = book;
-          document.getElementById('book-title').value = book.title || '';
-          document.getElementById('book-author').value = book.author || '';
-          document.getElementById('book-publisher').value = book.publisher || '';
-          document.getElementById('book-year').value = book.year || '';
-          document.getElementById('book-link').value = book.drive_link || '';
-          document.getElementById('book-cover').value = book.cover_url || '';
-          adminFormContainer.classList.remove('hidden');
-          document.getElementById('book-title').focus();
-        });
+        editBtn.remove(); // Dihapus dari UI agar sederhana
 
-        // Action: Delete
+        // Tombol: Hapus
         const deleteBtn = wrapper.querySelector('.delete-btn');
         deleteBtn.innerHTML = 'Hapus';
+        deleteBtn.className = "canva-button delete-btn flex items-center gap-1 px-3 py-2 bg-red-600 text-white rounded-lg font-medium text-sm";
         if (isAdminMode) deleteBtn.classList.remove('hidden');
+        
         deleteBtn.addEventListener('click', async e => {
           if(!confirm("Yakin ingin menghapus buku ini?")) return;
           e.currentTarget.disabled = true;
-          try {
-              const res = await fetch(`${API_BASE_URL}/books/${book.id}`, { method: 'DELETE' });
-              if (res.ok) await loadData();
-          } catch(err) { console.error(err); e.currentTarget.disabled = false; }
+          e.currentTarget.textContent = "Loading...";
+          
+          const success = await sendDataToGAS('deleteBook', { id: book.id });
+          if(success) loadData(); 
         });
 
         const liveCoverImg = wrapper.querySelector('[data-template-id="book-card-cover"]');
@@ -607,13 +643,14 @@
       if (window.lucide) window.lucide.createIcons();
     }
 
-    // FORM PENGUNJUNG - BACA BUKU (POST Visit)
+    // FORM PENGUNJUNG - BACA BUKU 
     visitorCancelBtn.addEventListener('click', () => { visitorModal.classList.add('hidden'); pendingBook = null; });
     visitorForm.addEventListener('submit', async e => {
       e.preventDefault();
       if (!pendingBook) return;
       const submitBtn = visitorForm.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
+      submitBtn.textContent = "Memproses...";
 
       const payload = {
         visitor_name: document.getElementById('visitor-name-input').value.trim(),
@@ -622,31 +659,26 @@
         visitor_date: new Date().toISOString()
       };
 
-      try {
-          const res = await fetch(`${API_BASE_URL}/visits`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
-          });
-          if (res.ok) {
-              window.open(pendingBook.drive_link, '_blank'); 
-              visitorModal.classList.add('hidden'); 
-              visitorForm.reset(); 
-              pendingBook = null;
-              await loadData();
-          }
-      } catch (err) {
-          console.error(err);
-      } finally {
-          submitBtn.disabled = false;
-      }
+      // Kirim Data Pengunjung ke Server GAS
+      await sendDataToGAS('addVisit', payload); 
+      
+      // UX: Buka link buku walaupun masih proses kirim agar user tidak lama menunggu
+      window.open(pendingBook.drive_link, '_blank'); 
+      visitorModal.classList.add('hidden'); 
+      visitorForm.reset(); 
+      pendingBook = null;
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Lanjut Baca";
+      
+      loadData(); // Segarkan data leaderboard
     });
 
-    // TAMBAH / UPDATE BUKU (POST / PUT)
+    // TAMBAH BUKU BARU
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const submitBtn = form.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
+      submitBtn.textContent = "Menyimpan...";
       
       const payload = {
         title: document.getElementById('book-title').value.trim(),
@@ -658,30 +690,21 @@
         cover_url: normalizeCoverUrl(document.getElementById('book-cover').value.trim())
       };
 
-      try {
-          const url = editingBook ? `${API_BASE_URL}/books/${editingBook.id}` : `${API_BASE_URL}/books`;
-          const method = editingBook ? 'PUT' : 'POST';
-
-          const res = await fetch(url, {
-              method: method,
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
-          });
-
-          if (res.ok) { 
-              form.reset(); 
-              editingBook = null; 
-              await loadData(); 
-          }
-      } catch(err) {
-          console.error(err);
-      } finally {
-          submitBtn.disabled = false;
+      // Kirim data buku ke Server GAS
+      const success = await sendDataToGAS('addBook', payload);
+      if (success) {
+          form.reset();
+          loadData(); 
       }
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Tambah Buku";
     });
 
-    // Memuat data saat aplikasi pertama kali dijalankan
-    loadData();
+    // Panggil loadData() untuk memuat database Excel Anda yang lama secara otomatis
+    window.onload = () => {
+        loadData();
+    };
+
   </script>
  
 </body></html>
