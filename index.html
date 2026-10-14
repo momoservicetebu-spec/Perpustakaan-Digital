@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="id"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20261014-00-6bd5fd7","C":{"Abril Fatface":"YACgEZbkUVE,0","Albert Sans":"YAHO2HRfeh4,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo Black":"YACgEZulLoA,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Baloo 2":"YAHO2IcQUcM,0","Barlow Condensed":"YAFdJljEuFc,0","Barlow":"YAFdJsyuOPM,1","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFdJjTk5UU,1","Caveat":"YALBs2ploWQ,0","Cinzel":"YACgEeV8bIQ,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","Courier Prime":"YAD1aFjegN8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Figtree":"YAHO2b-mV7A,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAFdJpU7Kkk,0","Fredoka":"YACgEZml080,0","Georgia":"YAGzXkO0pEM,0","Hanken Grotesk":"YAHO2VB9G0I,0","Helvetica":"YAFcf7zkXN0,0","IBM Plex Mono":"YAFdJkmvhGI,0","IBM Plex Sans":"YAFdJgT0SHI,0","Impact":"YAFcfnjI7Vk,0","Instrument Sans":"YAHO2bKyaSQ,0","Instrument Serif":"YAHFeOnZNEk,0","Inter":"YAFdJvSyp_k,3","Italiana":"YAHO2Toik_w,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Josefin Sans":"YAFdJjvw9Ps,0","Karla":"YAHO2V2NSXM,0","Lato":"YAFdJuFCnaw,0","Libre Baskerville":"YACgEUFdPdA,0","Libre Caslon Display":"YAHO2XhLmt0,0","Lobster":"YAD8SnSjSFI,0","Lora":"YACgEXvxf8Q,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YAFdtQi73Xs,0","Noto Sans JP":"YAFdJiHXlcI,0","Noto Sans KR":"YAGsojZj-RQ,0","Nunito Sans":"YAFdtQJYB9w,1","Nunito":"YAFdJoNRMmU,1","Oleo Script":"YACgEQQ14jI,0","Oswald":"YACgEQY10lw,0","Outfit":"YAHO2nVlg14,0","Pacifico":"YADLjORQ1u4,0","Playfair Display":"YAFdJhem5V8,1","Plus Jakarta Sans":"YAHO2gdhi18,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Public Sans":"YAFdJj8NdaU,1","Quicksand":"YAFdJpYtCxE,1","Raleway":"YAFdJhmxbVQ,1","Roboto Slab":"YAFdJswIKAg,0","Rockwell":"YAFcfyVZnN0,0","Rye":"YACgEdQP21k,0","Sarabun":"YAFdJssSnME,0","Schibsted Grotesk":"YAHO2sWydRk,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Space Grotesk":"YAHO2sjPCSM,0","Space Mono":"YADW1-vpsoc,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Trebuchet MS":"YAFcfrglpVA,0","Ubuntu":"YACgERDU--Q,0","Verdana":"YAGzXTctYtQ,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0"}}');</script><script src="/_sdk/05db820ba1544614.telemetry_sdk.js" integrity="sha512-a7JzkQDDcioSXpM61nxTfeRW7PcxWQy5+BrhyeTFmQFsXJ+Gncm0y50u7fTA7qOPegFnRgqCfa0mGUOK1yjDWQ=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perpustakaan Digital SMAN 1 Bumi Agung</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    .heading-font { font-family: 'Playfair Display', serif; }
+    .category-card { transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .category-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+    .fade-in { animation: fadeIn 0.6s ease both; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .news-card { border-left: 4px solid #b45309; }
+    .leaderboard-card { background: linear-gradient(135deg, #ffffff, #faf7f0); border: 1px solid #e7e0d4; transition: transform 0.25s, box-shadow 0.25s; }
+    .leaderboard-card:hover { transform: translateY(-4px); box-shadow: 0 14px 26px rgba(120, 85, 35, 0.14); }
+    .leaderboard-card.top-rank { border-color: #d6a84f; background: linear-gradient(135deg, #fffaf0, #f8ecd0); }
+    .rank-badge { width: 34px; height: 34px; flex: 0 0 34px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: #d6d3d1; color: #44403c; font-weight: 700; }
+    .top-rank:nth-child(1) .rank-badge { background: #d6a84f; color: #fff; }
+    .top-rank:nth-child(2) .rank-badge { background: #9ca3af; color: #fff; }
+    .top-rank:nth-child(3) .rank-badge { background: #b7794b; color: #fff; }
+  </style>
+  <script src="/_sdk/570d53629f0b998d.data_sdk.js" integrity="sha512-JEN39+V+Nvv9ZZOVS8vNk1iA9ErZJHTdgOw9KzPuMiK7m0I+KPEr/wmTnCFIQVsDjCZgJWfGnFi1IQh2Io2qyA=="></script>
+  <script src="/_sdk/f195026a424c1f85.resizing_sdk.js" type="text/javascript" integrity="sha512-8On4Z+AXh1abEzZJ9Dbn9wOvFg+k1LsAaAzKGQ7LlfgXajZ9xEmZaZ1QVzv0AWhCZtCsEpWSOG9DgLri06TS7A=="></script>
+ </head>
+ <body data-template-id="__page-root" class="min-h-screen w-full" style="background: rgb(248, 246, 241);">
+  <header class="relative overflow-hidden" style="min-height: calc(45 * min(var(--vh, 1vh), 1vh));"><img data-template-id="hero-img" class="canva-image absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="Elegant modern library interior featuring floating stairs and illuminated bookshelves">
+   <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
+   <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-16" style="min-height: calc(45 * min(var(--vh, 1vh), 1vh));">
+    <h1 data-template-id="site-title" class="canva-text heading-font text-white mb-4" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 32px;">Perpustakaan Digital SMAN 1 Bumi Agung</h1>
+    <p data-template-id="site-subtitle" class="canva-text text-white/80 max-w-xl mb-8" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Jelajahi koleksi buku digital berdasarkan klasifikasi standar Perpustakaan Nasional Indonesia</p>
+    <div class="w-full max-w-lg relative"><input id="search-input" type="text" data-template-id="search-box" class="canva-input w-full px-5 py-3 pl-12 rounded-full text-gray-800 shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-400" placeholder="Cari kategori buku..." style="background: rgb(255, 255, 255); color: rgb(31, 41, 55); font-weight: 400; font-style: normal; font-size: 16px;"> <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" style="width:20px;height:20px;"></i>
+    </div>
+   </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-4 py-16">
+   <!-- Statistics -->
+   <section id="stats-section" class="mb-16">
+    <h2 data-template-id="stats-heading" class="canva-text heading-font text-center mb-8" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 24px;">Statistik Peminjaman</h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+     <div data-template-id="stat-total-card" class="canva-card rounded-xl p-6 text-center shadow-md" style="background: rgb(255, 255, 255);">
+      <p class="text-3xl font-bold text-amber-700" id="stat-total-count">0</p>
+      <p data-template-id="stat-total-label" class="canva-text mt-2 text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Total Kunjungan</p>
+     </div>
+     <div data-template-id="stat-top1-card" class="canva-card rounded-xl p-6 shadow-md" style="background: rgb(255, 255, 255);">
+      <div class="flex items-center gap-2 mb-2"><span class="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-sm">1</span>
+       <p data-template-id="stat-top1-label" class="canva-text text-xs" style="color: rgb(146, 64, 14); font-weight: 400; font-style: normal; font-size: 16px;">Terpopuler</p>
+      </div>
+      <p class="font-bold text-stone-800 truncate" id="stat-top1-title">-</p>
+      <p class="text-sm text-stone-500" id="stat-top1-count">0 kunjungan</p>
+     </div>
+     <div data-template-id="stat-top2-card" class="canva-card rounded-xl p-6 shadow-md" style="background: rgb(255, 255, 255);">
+      <div class="flex items-center gap-2 mb-2"><span class="w-8 h-8 rounded-full bg-stone-400 text-white flex items-center justify-center font-bold text-sm">2</span>
+       <p data-template-id="stat-top2-label" class="canva-text text-xs" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Peringkat 2</p>
+      </div>
+      <p class="font-bold text-stone-800 truncate" id="stat-top2-title">-</p>
+      <p class="text-sm text-stone-500" id="stat-top2-count">0 kunjungan</p>
+     </div>
+     <div data-template-id="stat-top3-card" class="canva-card rounded-xl p-6 shadow-md" style="background: rgb(255, 255, 255);">
+      <div class="flex items-center gap-2 mb-2"><span class="w-8 h-8 rounded-full bg-amber-800 text-white flex items-center justify-center font-bold text-sm">3</span>
+       <p data-template-id="stat-top3-label" class="canva-text text-xs" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Peringkat 3</p>
+      </div>
+      <p class="font-bold text-stone-800 truncate" id="stat-top3-title">-</p>
+      <p class="text-sm text-stone-500" id="stat-top3-count">0 kunjungan</p>
+     </div>
+    </div>
+   </section><!-- Visitor Leaderboard -->
+   <section id="leaderboard-section" class="mb-16">
+    <div class="flex items-center justify-between mb-8">
+     <div>
+      <h2 data-template-id="leaderboard-heading" class="canva-text heading-font" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 24px;">Pengunjung Terbanyak</h2>
+      <p data-template-id="leaderboard-subheading" class="canva-text text-sm mt-1" style="color: rgb(120, 113, 108); font-weight: 400; font-style: normal; font-size: 16px;">10 nama dengan kunjungan paling aktif</p>
+     </div><i data-lucide="trophy" class="text-amber-600" style="width:28px;height:28px;"></i>
+    </div>
+    <div id="visitor-leaderboard" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4"></div>
+    <p id="empty-leaderboard" data-template-id="empty-leaderboard-text" class="canva-text text-center py-8 hidden" style="color: rgb(168, 162, 158); font-weight: 400; font-style: normal; font-size: 16px;">Belum ada data kunjungan.</p>
+   </section><!-- Announcements Section -->
+   <section id="announcements-section" class="mb-16">
+    <div class="flex items-center justify-between mb-8">
+     <h2 data-template-id="announcements-heading" class="canva-text heading-font" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 24px;">Pemberitahuan</h2><button id="announce-admin-btn" type="button" class="flex items-center gap-2 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-100 transition-colors" title="Admin"> <i data-lucide="lock" style="width:18px;height:18px;"></i> <span data-template-id="announce-admin-text" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 500; font-style: normal; font-size: 16px;">Admin</span> </button>
+    </div><!-- Admin Announcement Form -->
+    <div id="announce-form-container" class="hidden">
+     <div data-template-id="announce-form-section" class="canva-card rounded-xl p-6 shadow-md mb-8" style="background: rgb(255, 255, 255);">
+      <h3 data-template-id="announce-form-heading" class="canva-text font-bold mb-4" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">Buat Pemberitahuan Baru</h3>
+      <form id="announce-form" class="space-y-4">
+       <div>
+        <label data-template-id="label-announce-title" class="canva-text block text-sm font-medium mb-1" for="announce-title-input" style="color: rgb(68, 64, 60); font-weight: 500; font-style: normal; font-size: 16px;">Judul Pemberitahuan</label> <input id="announce-title-input" type="text" required="" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400">
+       </div>
+       <div>
+        <label data-template-id="label-announce-content" class="canva-text block text-sm font-medium mb-1" for="announce-content-input" style="color: rgb(68, 64, 60); font-weight: 500; font-style: normal; font-size: 16px;">Isi Pemberitahuan</label> <textarea id="announce-content-input" required="" rows="4" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400 resize-y"></textarea>
+       </div><button data-template-id="announce-submit-btn" type="submit" class="canva-button px-6 py-2 rounded-lg font-medium" style="background: rgb(180, 83, 9); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Publikasikan</button>
+      </form>
+     </div>
+    </div><!-- Announcement List -->
+    <div id="announcement-list" class="space-y-4"></div>
+    <p id="empty-announcements" data-template-id="empty-announcements-text" class="canva-text text-center py-8 hidden" style="color: rgb(168, 162, 158); font-weight: 400; font-style: normal; font-size: 16px;">Belum ada pemberitahuan.</p>
+   </section><!-- Category View -->
+   <div id="category-view">
+    <h2 data-template-id="section-heading" class="canva-text heading-font text-center mb-12" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 24px;">Kategori Koleksi</h2>
+    <div id="category-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+     <article class="category-card fade-in rounded-xl overflow-hidden shadow-md" data-category="karya umum" style="animation-delay:0.05s"><img data-template-id="cat-general-img" class="canva-image w-full h-40 object-cover" loading="lazy" src="https://images.pexels.com/photos/13745412/pexels-photo-13745412.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Buku-buku tertumpuk di dekat jendela">
+      <div data-template-id="cat-general-body" class="canva-card p-4" style="background: rgb(255, 255, 255);">
+       <h3 data-template-id="cat-general-title" class="canva-text font-bold mb-1" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">000 — Karya Umum</h3>
+       <p data-template-id="cat-general-desc" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Ensiklopedia, majalah, koran, dan karya referensi umum</p>
+      </div>
+     </article>
+     <article class="category-card fade-in rounded-xl overflow-hidden shadow-md" data-category="filsafat" style="animation-delay:0.1s"><img data-template-id="cat-philosophy-img" class="canva-image w-full h-40 object-cover" loading="lazy" src="https://images.pexels.com/photos/11890535/pexels-photo-11890535.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Patung Socrates klasik di perpustakaan">
+      <div data-template-id="cat-philosophy-body" class="canva-card p-4" style="background: rgb(255, 255, 255);">
+       <h3 data-template-id="cat-philosophy-title" class="canva-text font-bold mb-1" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">100 — Filsafat &amp; Psikologi</h3>
+       <p data-template-id="cat-philosophy-desc" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Logika, etika, metafisika, dan psikologi</p>
+      </div>
+     </article>
+     <article class="category-card fade-in rounded-xl overflow-hidden shadow-md" data-category="agama" style="animation-delay:0.15s"><img data-template-id="cat-religion-img" class="canva-image w-full h-40 object-cover" loading="lazy" src="https://images.pexels.com/photos/14876557/pexels-photo-14876557.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Al-Quran terbuka di bawah cahaya lampu">
+      <div data-template-id="cat-religion-body" class="canva-card p-4" style="background: rgb(255, 255, 255);">
+       <h3 data-template-id="cat-religion-title" class="canva-text font-bold mb-1" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">200 — Agama</h3>
+       <p data-template-id="cat-religion-desc" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Kitab suci, teologi, dan kehidupan beragama</p>
+      </div>
+     </article>
+     <article class="category-card fade-in rounded-xl overflow-hidden shadow-md" data-category="ilmu sosial" style="animation-delay:0.2s"><img data-template-id="cat-social-img" class="canva-image w-full h-40 object-cover" loading="lazy" src="https://images.pexels.com/photos/1004783/pexels-photo-1004783.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Globe di antara buku-buku di rak kayu">
+      <div data-template-id="cat-social-body" class="canva-card p-4" style="background: rgb(255, 255, 255);">
+       <h3 data-template-id="cat-social-title" class="canva-text font-bold mb-1" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">300 — Ilmu Sosial</h3>
+       <p data-template-id="cat-social-desc" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Sosiologi, politik, ekonomi, hukum, dan pendidikan</p>
+      </div>
+     </article>
+     <article class="category-card fade-in rounded-xl overflow-hidden shadow-md" data-category="bahasa" style="animation-delay:0.25s"><img data-template-id="cat-language-img" class="canva-image w-full h-40 object-cover" loading="lazy" src="https://images.pexels.com/photos/13752245/pexels-photo-13752245.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Kamus Inggris-Spanyol vintage">
+      <div data-template-id="cat-language-body" class="canva-card p-4" style="background: rgb(255, 255, 255);">
+       <h3 data-template-id="cat-language-title" class="canva-text font-bold mb-1" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">400 — Bahasa</h3>
+       <p data-template-id="cat-language-desc" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Linguistik, kamus, dan tata bahasa</p>
+      </div>
+     </article>
+     <article class="category-card fade-in rounded-xl overflow-hidden shadow-md" data-category="ilmu murni" style="animation-delay:0.3s"><img data-template-id="cat-science-img" class="canva-image w-full h-40 object-cover" loading="lazy" src="https://images.pexels.com/photos/5306508/pexels-photo-5306508.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Anak belajar sains dengan buku dan tabung reaksi">
+      <div data-template-id="cat-science-body" class="canva-card p-4" style="background: rgb(255, 255, 255);">
+       <h3 data-template-id="cat-science-title" class="canva-text font-bold mb-1" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">500 — Ilmu Murni</h3>
+       <p data-template-id="cat-science-desc" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Matematika, fisika, kimia, dan biologi</p>
+      </div>
+     </article>
+     <article class="category-card fade-in rounded-xl overflow-hidden shadow-md" data-category="teknologi" style="animation-delay:0.35s"><img data-template-id="cat-tech-img" class="canva-image w-full h-40 object-cover" loading="lazy" src="https://images.pexels.com/photos/1181595/pexels-photo-1181595.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Meja kerja dengan laptop dan buku">
+      <div data-template-id="cat-tech-body" class="canva-card p-4" style="background: rgb(255, 255, 255);">
+       <h3 data-template-id="cat-tech-title" class="canva-text font-bold mb-1" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">600 — Teknologi Terapan</h3>
+       <p data-template-id="cat-tech-desc" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Kedokteran, teknik, pertanian, dan industri</p>
+      </div>
+     </article>
+     <article class="category-card fade-in rounded-xl overflow-hidden shadow-md" data-category="kesenian" style="animation-delay:0.4s"><img data-template-id="cat-arts-img" class="canva-image w-full h-40 object-cover" loading="lazy" src="https://images.pexels.com/photos/6925077/pexels-photo-6925077.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Studio seni kreatif dengan kuas dan buku">
+      <div data-template-id="cat-arts-body" class="canva-card p-4" style="background: rgb(255, 255, 255);">
+       <h3 data-template-id="cat-arts-title" class="canva-text font-bold mb-1" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">700 — Kesenian &amp; Olahraga</h3>
+       <p data-template-id="cat-arts-desc" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Seni rupa, musik, fotografi, dan olahraga</p>
+      </div>
+     </article>
+     <article class="category-card fade-in rounded-xl overflow-hidden shadow-md" data-category="kesusastraan" style="animation-delay:0.45s"><img data-template-id="cat-literature-img" class="canva-image w-full h-40 object-cover" loading="lazy" src="https://images.pexels.com/photos/8391464/pexels-photo-8391464.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Buku-buku kulit vintage di rak">
+      <div data-template-id="cat-literature-body" class="canva-card p-4" style="background: rgb(255, 255, 255);">
+       <h3 data-template-id="cat-literature-title" class="canva-text font-bold mb-1" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">800 — Kesusastraan</h3>
+       <p data-template-id="cat-literature-desc" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Novel, puisi, drama, dan kritik sastra</p>
+      </div>
+     </article>
+     <article class="category-card fade-in rounded-xl overflow-hidden shadow-md" data-category="sejarah geografi" style="animation-delay:0.5s"><img data-template-id="cat-history-img" class="canva-image w-full h-40 object-cover" loading="lazy" src="https://images.pexels.com/photos/159757/knowledge-book-library-glasses-159757.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Buku sejarah terbuka dengan peta vintage">
+      <div data-template-id="cat-history-body" class="canva-card p-4" style="background: rgb(255, 255, 255);">
+       <h3 data-template-id="cat-history-title" class="canva-text font-bold mb-1" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">900 — Sejarah &amp; Geografi</h3>
+       <p data-template-id="cat-history-desc" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Sejarah dunia, biografi, dan geografi</p>
+      </div>
+     </article>
+     <article class="category-card fade-in rounded-xl overflow-hidden shadow-md" data-category="lain-lain pengetahuan otomotif" style="animation-delay:0.55s"><img data-template-id="cat-automotive-img" class="canva-image w-full h-40 object-cover" loading="lazy" src="https://images.pexels.com/photos/4116228/pexels-photo-4116228.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Mekanik memeriksa mesin mobil di bengkel">
+      <div data-template-id="cat-automotive-body" class="canva-card p-4" style="background: rgb(255, 255, 255);">
+       <h3 data-template-id="cat-automotive-title" class="canva-text font-bold mb-1" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">Lain-lain — Pengetahuan Otomotif</h3>
+       <p data-template-id="cat-automotive-desc" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Mesin kendaraan, perawatan mobil, dan teknologi otomotif</p>
+      </div>
+     </article>
+     <article class="category-card fade-in rounded-xl overflow-hidden shadow-md" data-category="rekayasa perangkat lunak rpl software programming" style="animation-delay:0.6s"><img data-template-id="cat-software-img" class="canva-image w-full h-40 object-cover" loading="lazy" src="https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Layar komputer menampilkan kode pemrograman">
+      <div data-template-id="cat-software-body" class="canva-card p-4" style="background: rgb(255, 255, 255);">
+       <h3 data-template-id="cat-software-title" class="canva-text font-bold mb-1" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">Rekayasa Perangkat Lunak</h3>
+       <p data-template-id="cat-software-desc" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 400; font-style: normal; font-size: 16px;">Pemrograman, pengembangan aplikasi, dan teknologi perangkat lunak</p>
+      </div>
+     </article>
+    </div>
+   </div><!-- Detail View -->
+   <div id="detail-view" class="hidden">
+    <button id="back-btn" type="button" class="flex items-center gap-2 mb-6 text-amber-700 hover:text-amber-900 font-medium"> <i data-lucide="arrow-left" style="width:20px;height:20px;"></i> <span data-template-id="back-button-text" class="canva-text" style="color: rgb(146, 64, 14); font-weight: 500; font-style: normal; font-size: 16px;">Kembali ke Kategori</span> </button>
+    <div class="flex items-center justify-between mb-6">
+     <h2 id="detail-title" class="heading-font text-2xl font-bold text-stone-800"></h2><button id="admin-toggle-btn" type="button" class="flex items-center gap-2 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-100 transition-colors" title="Admin access"> <i data-lucide="lock" style="width:18px;height:18px;"></i> <span data-template-id="admin-button-text" class="canva-text text-sm" style="color: rgb(87, 83, 78); font-weight: 500; font-style: normal; font-size: 16px;">Admin</span> </button>
+    </div>
+    <div data-template-id="book-search-section" class="canva-panel mb-6" style="background: rgb(255, 255, 255);">
+     <label data-template-id="book-search-label" class="canva-text block text-sm font-medium mb-2" for="book-search-input" style="color: rgb(68, 64, 60); font-weight: 500; font-style: normal; font-size: 16px;">Cari buku di kategori ini</label>
+     <div class="relative"><input id="book-search-input" type="search" data-template-id="book-search-input" class="canva-input w-full border border-stone-300 rounded-lg px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-amber-400" placeholder="Cari berdasarkan judul, penulis, penerbit, atau tahun..." style="background: rgb(255, 255, 255); color: rgb(31, 41, 55); font-weight: 400; font-style: normal; font-size: 16px;"> <i data-lucide="search" class="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400" style="width:20px;height:20px;"></i>
+     </div>
+    </div>
+    <div id="admin-form-container" class="hidden mb-8">
+     <div data-template-id="form-section" class="canva-card rounded-xl p-6 shadow-md" style="background: rgb(255, 255, 255);">
+      <h3 data-template-id="form-heading" class="canva-text font-bold mb-4" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">Tambah Buku Baru</h3>
+      <form id="add-book-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+       <div>
+        <label data-template-id="label-title" class="canva-text block text-sm font-medium mb-1" for="book-title" style="color: rgb(68, 64, 60); font-weight: 500; font-style: normal; font-size: 16px;">Judul Buku</label> <input id="book-title" type="text" required="" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400">
+       </div>
+       <div>
+        <label data-template-id="label-author" class="canva-text block text-sm font-medium mb-1" for="book-author" style="color: rgb(68, 64, 60); font-weight: 500; font-style: normal; font-size: 16px;">Penulis</label> <input id="book-author" type="text" required="" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400">
+       </div>
+       <div>
+        <label data-template-id="label-publisher" class="canva-text block text-sm font-medium mb-1" for="book-publisher" style="color: rgb(68, 64, 60); font-weight: 500; font-style: normal; font-size: 16px;">Penerbit</label> <input id="book-publisher" type="text" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400">
+       </div>
+       <div>
+        <label data-template-id="label-year" class="canva-text block text-sm font-medium mb-1" for="book-year" style="color: rgb(68, 64, 60); font-weight: 500; font-style: normal; font-size: 16px;">Tahun Terbit</label> <input id="book-year" type="text" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400">
+       </div>
+       <div>
+        <label data-template-id="label-link" class="canva-text block text-sm font-medium mb-1" for="book-link" style="color: rgb(68, 64, 60); font-weight: 500; font-style: normal; font-size: 16px;">Link Google Drive</label> <input id="book-link" type="url" required="" placeholder="https://drive.google.com/..." class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400">
+       </div>
+       <div class="sm:col-span-2">
+        <label data-template-id="label-cover" class="canva-text block text-sm font-medium mb-1" for="book-cover" style="color: rgb(68, 64, 60); font-weight: 500; font-style: normal; font-size: 16px;">Link Sharing Google Drive Gambar Sampul</label> <input id="book-cover" type="url" required="" placeholder="Tempel link sharing Google Drive gambar sampul" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400">
+       </div>
+       <div class="sm:col-span-2">
+        <button data-template-id="add-book-btn" type="submit" class="canva-button px-6 py-2 rounded-lg font-medium" style="background: rgb(180, 83, 9); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Tambah Buku</button>
+       </div>
+      </form>
+     </div>
+    </div>
+    <div id="book-list" class="space-y-4"></div>
+    <p id="empty-books" data-template-id="empty-books-text" class="canva-text text-center py-8 text-stone-400 hidden" style="color: rgb(168, 162, 158); font-weight: 400; font-style: normal; font-size: 16px;">Belum ada buku di kategori ini. Tambahkan buku pertama!</p>
+   </div>
+  </main><!-- Admin PIN Modal -->
+  <div id="admin-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+   <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-xs">
+    <h3 data-template-id="admin-modal-title" class="canva-text font-bold mb-4" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">Masukkan PIN Admin</h3><input id="admin-pin" type="password" maxlength="6" placeholder="000000" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-center text-2xl tracking-widest focus:outline-none focus:ring-2 focus:ring-amber-400 mb-4" autocomplete="off">
+    <div class="flex gap-3">
+     <button id="admin-cancel-btn" type="button" data-template-id="admin-cancel-text" class="canva-button flex-1 px-4 py-2 rounded-lg font-medium" style="background: rgb(245, 245, 244); color: rgb(41, 37, 36); font-weight: 600; font-style: normal; font-size: 16px;">Batal</button> <button id="admin-submit-btn" type="button" data-template-id="admin-submit-text" class="canva-button flex-1 px-4 py-2 rounded-lg font-medium" style="background: rgb(180, 83, 9); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Akses</button>
+    </div>
+    <p id="admin-error" class="text-red-600 text-sm mt-3 text-center hidden"></p>
+   </div>
+  </div><!-- Visitor Modal -->
+  <div id="visitor-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+   <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-sm">
+    <h3 data-template-id="visitor-modal-title" class="canva-text font-bold mb-4" style="color: rgb(41, 37, 36); font-weight: 700; font-style: normal; font-size: 19px;">Data Pengunjung / Anggota</h3>
+    <p data-template-id="visitor-class-notice" class="canva-text text-sm leading-relaxed mb-4" style="color: rgb(120, 113, 108); font-weight: 400; font-style: normal; font-size: 13px;">Nama dan keterangan kelas akan direkam sebagai data anggota perpustakaan. Jika Anda guru atau pengunjung umum dari luar sekolah, isi kolom kelas dengan: Guru atau Pengunjung Luar.</p>
+    <form id="visitor-form" class="space-y-4">
+     <div>
+      <label data-template-id="visitor-name-label" class="canva-text block text-sm font-medium mb-1" for="visitor-name-input" style="color: rgb(68, 64, 60); font-weight: 500; font-style: normal; font-size: 16px;">Nama Lengkap</label> <input id="visitor-name-input" type="text" required="" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400">
+     </div>
+     <div>
+      <label data-template-id="visitor-class-label" class="canva-text block text-sm font-medium mb-1" for="visitor-class-input" style="color: rgb(68, 64, 60); font-weight: 500; font-style: normal; font-size: 16px;">Kelas</label> <input id="visitor-class-input" type="text" required="" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400">
+     </div>
+     <div class="flex gap-3">
+      <button type="button" id="visitor-cancel-btn" data-template-id="visitor-cancel-btn" class="canva-button flex-1 px-4 py-2 rounded-lg font-medium" style="background: rgb(245, 245, 244); color: rgb(41, 37, 36); font-weight: 600; font-style: normal; font-size: 16px;">Batal</button> <button type="submit" data-template-id="visitor-submit-btn" class="canva-button flex-1 px-4 py-2 rounded-lg font-medium" style="background: rgb(180, 83, 9); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Lanjut Baca</button>
+     </div>
+    </form>
+   </div>
+  </div><!-- Book card template -->
+  <template id="book-card-template">
+   <div data-template-id="book-card" class="canva-card flex flex-col sm:flex-row gap-4 p-4 rounded-xl shadow-sm">
+    <div class="book-cover-wrapper shrink-0" style="width:100px;height:140px;">
+     <img data-template-id="book-card-cover" class="canva-image w-full h-full object-cover rounded-lg" loading="lazy">
+    </div>
+    <div class="flex-1 min-w-0 flex flex-col justify-between">
+     <div>
+      <h4 data-template-id="book-card-title" class="canva-text font-bold"></h4>
+      <p data-template-id="book-card-meta" class="canva-text text-sm mt-2"></p>
+     </div>
+     <div class="flex gap-2 mt-4">
+      <button type="button" data-template-id="read-btn" class="canva-button read-btn flex items-center gap-1 px-4 py-2 rounded-lg font-medium text-sm"></button> <button type="button" data-template-id="edit-btn" class="canva-button edit-btn flex items-center gap-1 px-3 py-2 rounded-lg font-medium text-sm hidden"></button> <button type="button" data-template-id="delete-btn" class="canva-button delete-btn flex items-center gap-1 px-3 py-2 rounded-lg font-medium text-sm hidden"></button>
+     </div>
+    </div>
+   </div>
+  </template><!-- Announcement card template -->
+  <template id="announcement-card-template">
+   <article data-template-id="announcement-card" class="canva-card news-card rounded-lg p-5 shadow-sm">
+    <div class="flex items-start justify-between gap-4">
+     <div class="flex-1 min-w-0">
+      <p data-template-id="announcement-card-date" class="canva-text text-xs mb-1"></p>
+      <h3 data-template-id="announcement-card-title" class="canva-text font-bold mb-2"></h3>
+      <p data-template-id="announcement-card-content" class="canva-text text-sm leading-relaxed"></p>
+     </div><button type="button" data-template-id="announcement-delete-btn" class="canva-button announcement-delete-btn shrink-0 px-3 py-1 rounded-lg text-sm hidden"></button>
+    </div>
+   </article>
+  </template>
+  <footer data-template-id="footer-section" class="canva-footer py-8 text-center" style="background: rgb(41, 37, 36);">
+   <div class="mb-6">
+    <div class="flex justify-center gap-6">
+     <a data-template-id="whatsapp-link" href="https://api.whatsapp.com/message/PA2MO3KCZ2S7N1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-12 h-12 rounded-full transition-all transform hover:scale-110" title="WhatsApp" aria-label="WhatsApp" style="color: rgb(245, 245, 244);">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004c-1.462 0-2.91-.474-4.087-1.363-1.177-.889-2.086-2.149-2.542-3.551l-.65.387c-.16.095-.344.097-.504.005a.528.528 0 01-.262-.438l-.008-2.899c-.689-1.266-1.054-2.69-1.054-4.148C2.94 5.33 7.006 1.264 11.99 1.264c4.98 0 9.05 4.067 9.05 9.05 0 4.984-4.07 9.05-9.05 9.05M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+      </svg></a> <a data-template-id="instagram-link" href="https://www.instagram.com/officialsman1bumiagung/?igsh=MXN6c2VtY2FudmE=" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-12 h-12 rounded-full transition-all transform hover:scale-110" title="Instagram" aria-label="Instagram" style="color: rgb(245, 245, 244);">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"></path><path d="M5.838 12c0-3.403 2.759-6.162 6.162-6.162 3.403 0 6.162 2.759 6.162 6.162 0 3.403-2.759 6.162-6.162 6.162-3.403 0-6.162-2.759-6.162-6.162zm2.409 0c0 2.084 1.689 3.773 3.753 3.773 2.064 0 3.753-1.689 3.753-3.773 0-2.084-1.689-3.753-3.753-3.753-2.064 0-3.753 1.67-3.753 3.753z"></path><circle cx="18.406" cy="5.594" r="1.44"></circle>
+      </svg></a> <a data-template-id="facebook-link" href="https://m.facebook.com/1458439857580572" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-12 h-12 rounded-full transition-all transform hover:scale-110" title="Facebook" aria-label="Facebook" style="color: rgb(245, 245, 244);">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+      </svg></a>
+    </div>
+   </div>
+   <p data-template-id="footer-text" class="canva-text text-sm" style="color: rgb(214, 211, 209); font-weight: 400; font-style: normal; font-size: 16px;">© 2026 Perpustakaan Digital SMAN 1 Bumi Agung. Hak cipta dilindungi. Developed by Guntoro</p>
+  </footer>
+  <script src="/_sdk/0b63fb8940df03d4.editing_sdk.js" integrity="sha512-fFkkekAA7XKU9UcNO+7a7lGi1SDVYUdIo1lpZS9YpfVovu1WAj3C/MEr/w8zt6Jwq6OKflaYkwf4eOUpMYGz9A=="></script>
+  <script>
+    if (window.lucide) window.lucide.createIcons();
+
+    let allData = [];
+    let currentCategory = '';
+    let isAdminMode = false;
+    let isAnnounceAdmin = false;
+    let pendingBook = null;
+    let editingBook = null;
+    let adminContext = ''; // 'book' or 'announce'
+    const ADMIN_PIN = '151190';
+
+    const categoryView = document.getElementById('category-view');
+    const detailView = document.getElementById('detail-view');
+    const detailTitle = document.getElementById('detail-title');
+    const bookList = document.getElementById('book-list');
+    const emptyBooks = document.getElementById('empty-books');
+    const form = document.getElementById('add-book-form');
+    const adminFormContainer = document.getElementById('admin-form-container');
+    const adminToggleBtn = document.getElementById('admin-toggle-btn');
+    const adminModal = document.getElementById('admin-modal');
+    const adminPinInput = document.getElementById('admin-pin');
+    const adminCancelBtn = document.getElementById('admin-cancel-btn');
+    const adminSubmitBtn = document.getElementById('admin-submit-btn');
+    const adminError = document.getElementById('admin-error');
+    const visitorModal = document.getElementById('visitor-modal');
+    const visitorForm = document.getElementById('visitor-form');
+    const visitorCancelBtn = document.getElementById('visitor-cancel-btn');
+    const announceAdminBtn = document.getElementById('announce-admin-btn');
+    const announceFormContainer = document.getElementById('announce-form-container');
+    const announceForm = document.getElementById('announce-form');
+    const announcementList = document.getElementById('announcement-list');
+    const emptyAnnouncements = document.getElementById('empty-announcements');
+
+    function getBooks() { return allData.filter(r => r.record_type === 'book'); }
+    function getVisits() { return allData.filter(r => r.record_type === 'visit'); }
+    function getAnnouncements() { return allData.filter(r => r.record_type === 'announcement').sort((a, b) => (b.announcement_date || '').localeCompare(a.announcement_date || '')); }
+
+    function updateStats() {
+      const visits = getVisits();
+      renderLeaderboard(visits);
+      document.getElementById('stat-total-count').textContent = visits.length;
+      const counts = {};
+      visits.forEach(v => { const t = v.visitor_book_title || ''; counts[t] = (counts[t] || 0) + 1; });
+      const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 3);
+      ['stat-top1', 'stat-top2', 'stat-top3'].forEach((id, i) => {
+        const titleEl = document.getElementById(id + '-title');
+        const countEl = document.getElementById(id + '-count');
+        if (sorted[i]) { titleEl.textContent = sorted[i][0]; countEl.textContent = sorted[i][1] + ' kunjungan'; }
+        else { titleEl.textContent = '-'; countEl.textContent = '0 kunjungan'; }
+      });
+    }
+
+    function renderLeaderboard(visits) {
+      const leaderboard = document.getElementById('visitor-leaderboard');
+      const empty = document.getElementById('empty-leaderboard');
+      const counts = {};
+      visits.forEach(v => {
+        const name = (v.visitor_name || 'Pengunjung').trim();
+        counts[name] = (counts[name] || 0) + 1;
+      });
+      const ranked = Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 10);
+      leaderboard.innerHTML = '';
+      empty.classList.toggle('hidden', ranked.length > 0);
+      ranked.forEach(([name, count], index) => {
+        const card = document.createElement('article');
+        card.className = `leaderboard-card rounded-xl p-4 shadow-sm flex items-center gap-3 ${index < 3 ? 'top-rank' : ''}`;
+        card.innerHTML = `<span class="rank-badge">${index + 1}</span><div class="min-w-0"><p class="font-bold text-stone-800 truncate"></p><p class="text-xs text-stone-500">${count} kunjungan</p></div>`;
+        card.querySelector('p').textContent = name;
+        leaderboard.appendChild(card);
+      });
+    }
+
+    function renderAnnouncements() {
+      const announcements = getAnnouncements();
+      const existing = new Map([...announcementList.children].map(el => [el.dataset.id, el]));
+      if (announcements.length === 0) {
+        announcementList.innerHTML = '';
+        emptyAnnouncements.classList.remove('hidden');
+        return;
+      }
+      emptyAnnouncements.classList.add('hidden');
+      const template = document.getElementById('announcement-card-template');
+      const newIds = new Set(announcements.map(a => a.__backendId));
+      existing.forEach((el, id) => { if (!newIds.has(id)) el.remove(); });
+
+      announcements.forEach(item => {
+        if (existing.has(item.__backendId)) {
+          // Update delete visibility
+          const el = existing.get(item.__backendId);
+          const delBtn = el.querySelector('.announcement-delete-btn');
+          if (delBtn) delBtn.classList.toggle('hidden', !isAnnounceAdmin);
+          return;
+        }
+        const clone = template.content.cloneNode(true);
+        const wrapper = clone.firstElementChild;
+        wrapper.dataset.id = item.__backendId;
+        const dateStr = item.announcement_date ? new Date(item.announcement_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+        wrapper.querySelector('[data-template-id="announcement-card-date"]').textContent = dateStr;
+        wrapper.querySelector('[data-template-id="announcement-card-title"]').textContent = item.announcement_title || '';
+        wrapper.querySelector('[data-template-id="announcement-card-content"]').textContent = item.announcement_content || '';
+        const delBtn = wrapper.querySelector('.announcement-delete-btn');
+        if (isAnnounceAdmin) {
+          delBtn.classList.remove('hidden');
+        }
+        delBtn.addEventListener('click', async () => {
+          delBtn.disabled = true;
+          const res = await window.dataSdk.delete(item);
+          if (!res.isOk) delBtn.disabled = false;
+        });
+        announcementList.appendChild(clone);
+      });
+    }
+
+    // Admin modal - shared for book and announcement
+    function showAdminModal(context) {
+      adminContext = context;
+      adminModal.classList.remove('hidden');
+      adminPinInput.value = '';
+      adminError.classList.add('hidden');
+      adminPinInput.focus();
+    }
+
+    adminToggleBtn.addEventListener('click', () => showAdminModal('book'));
+    announceAdminBtn.addEventListener('click', () => showAdminModal('announce'));
+    adminCancelBtn.addEventListener('click', () => { adminModal.classList.add('hidden'); });
+    adminSubmitBtn.addEventListener('click', () => {
+      if (adminPinInput.value.trim() === ADMIN_PIN) {
+        adminModal.classList.add('hidden');
+        if (adminContext === 'book') {
+          isAdminMode = !isAdminMode;
+          adminFormContainer.classList.toggle('hidden', !isAdminMode);
+          adminToggleBtn.classList.toggle('text-amber-700', isAdminMode);
+          renderBooks();
+        } else {
+          isAnnounceAdmin = !isAnnounceAdmin;
+          announceFormContainer.classList.toggle('hidden', !isAnnounceAdmin);
+          announceAdminBtn.classList.toggle('text-amber-700', isAnnounceAdmin);
+          renderAnnouncements();
+        }
+      } else {
+        adminError.classList.remove('hidden');
+        adminError.textContent = 'PIN salah';
+        adminPinInput.value = '';
+        adminPinInput.focus();
+      }
+    });
+    adminPinInput.addEventListener('keypress', e => { if (e.key === 'Enter') adminSubmitBtn.click(); });
+
+    // Announcement form
+    announceForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const submitBtn = announceForm.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      if (allData.length >= 999) { submitBtn.disabled = false; return; }
+      const res = await window.dataSdk.create({
+        record_type: 'announcement',
+        announcement_title: document.getElementById('announce-title-input').value.trim(),
+        announcement_content: document.getElementById('announce-content-input').value.trim(),
+        announcement_date: new Date().toISOString(),
+        title: '', author: '', year: '', category: '', drive_link: '', cover_url: '',
+        visitor_name: '', visitor_class: '', visitor_book_title: '', visitor_date: ''
+      });
+      submitBtn.disabled = false;
+      if (res.isOk) announceForm.reset();
+    });
+
+    // Category click
+    document.querySelectorAll('.category-card').forEach(card => {
+      card.addEventListener('click', () => {
+        currentCategory = card.dataset.category;
+        bookSearchInput.value = '';
+        const titleEl = card.querySelector('h3');
+        detailTitle.textContent = titleEl ? titleEl.textContent : currentCategory;
+        categoryView.classList.add('hidden');
+        document.getElementById('stats-section').classList.add('hidden');
+        document.getElementById('announcements-section').classList.add('hidden');
+        detailView.classList.remove('hidden');
+        window.scrollTo(0, 0);
+        renderBooks();
+      });
+    });
+
+    document.getElementById('back-btn').addEventListener('click', () => {
+      detailView.classList.add('hidden');
+      categoryView.classList.remove('hidden');
+      document.getElementById('stats-section').classList.remove('hidden');
+      document.getElementById('announcements-section').classList.remove('hidden');
+    });
+
+    // Search
+    const searchInput = document.getElementById('search-input');
+    const cards = document.querySelectorAll('.category-card');
+    searchInput.addEventListener('input', e => {
+      const q = e.target.value.toLowerCase();
+      cards.forEach(card => { card.style.display = card.dataset.category.includes(q) ? '' : 'none'; });
+    });
+
+    const bookSearchInput = document.getElementById('book-search-input');
+    bookSearchInput.addEventListener('input', () => renderBooks());
+
+    function normalizeCoverUrl(url) {
+      const value = (url || '').trim();
+      if (!value) return '';
+      try {
+        const parsed = new URL(value);
+        const isDriveHost = ['drive.google.com', 'www.drive.google.com', 'docs.google.com'].includes(parsed.hostname);
+        if (isDriveHost) {
+          const fileMatch = parsed.pathname.match(/\/file\/d\/([^/]+)/);
+          const id = fileMatch ? fileMatch[1] : parsed.searchParams.get('id');
+          if (id) return `https://lh3.googleusercontent.com/d/${encodeURIComponent(id)}=w400`;
+        }
+      } catch (error) {
+        return value;
+      }
+      return value;
+    }
+
+    function renderBooks() {
+      const query = bookSearchInput.value.trim().toLowerCase();
+      const filtered = getBooks().filter(b => b.category === currentCategory && (!query || [b.title, b.author, b.publisher, b.year].some(value => (value || '').toLowerCase().includes(query))));
+      const existing = new Map([...bookList.children].map(el => [el.dataset.id, el]));
+      if (filtered.length === 0) { bookList.innerHTML = ''; emptyBooks.classList.remove('hidden'); return; }
+      emptyBooks.classList.add('hidden');
+      const template = document.getElementById('book-card-template');
+      const newIds = new Set(filtered.map(b => b.__backendId));
+      existing.forEach((el, id) => { if (!newIds.has(id)) el.remove(); });
+
+      filtered.forEach(book => {
+        if (existing.has(book.__backendId)) {
+          const existingCard = existing.get(book.__backendId);
+          const existingDeleteBtn = existingCard.querySelector('.delete-btn');
+          const existingEditBtn = existingCard.querySelector('.edit-btn');
+          if (existingDeleteBtn) {
+            existingDeleteBtn.classList.toggle('hidden', !isAdminMode);
+            existingDeleteBtn.disabled = false;
+          }
+          if (existingEditBtn) {
+            existingEditBtn.classList.toggle('hidden', !isAdminMode);
+            existingEditBtn.style.display = isAdminMode ? 'inline-flex' : '';
+          }
+          const existingCoverImg = existingCard.querySelector('[data-template-id="book-card-cover"]');
+          const existingCoverUrl = normalizeCoverUrl(book.cover_url);
+          if (existingCoverImg && existingCoverUrl) {
+            existingCoverImg.src = existingCoverUrl;
+            existingCoverImg.alt = book.title;
+          }
+          return;
+        }
+        const clone = template.content.cloneNode(true);
+        const wrapper = clone.firstElementChild;
+        wrapper.dataset.id = book.__backendId;
+        wrapper.querySelector('[data-template-id="book-card-title"]').textContent = book.title;
+        wrapper.querySelector('[data-template-id="book-card-meta"]').textContent = `${book.author} • ${book.year || '-'}`;
+        const coverImg = wrapper.querySelector('[data-template-id="book-card-cover"]');
+        wrapper.querySelector('.read-btn').addEventListener('click', () => {
+          pendingBook = book;
+          visitorModal.classList.remove('hidden');
+          document.getElementById('visitor-name-input').focus();
+        });
+        const editBtn = wrapper.querySelector('.edit-btn');
+        editBtn.classList.toggle('hidden', !isAdminMode);
+        editBtn.style.display = isAdminMode ? 'inline-flex' : '';
+        editBtn.addEventListener('click', () => {
+          editingBook = book;
+          document.getElementById('book-title').value = book.title || '';
+          document.getElementById('book-author').value = book.author || '';
+          document.getElementById('book-publisher').value = book.publisher || '';
+          document.getElementById('book-year').value = book.year || '';
+          document.getElementById('book-link').value = book.drive_link || '';
+          document.getElementById('book-cover').value = book.cover_url || '';
+          adminFormContainer.classList.remove('hidden');
+          document.getElementById('book-title').focus();
+        });
+        const deleteBtn = wrapper.querySelector('.delete-btn');
+        deleteBtn.classList.toggle('hidden', !isAdminMode);
+        deleteBtn.addEventListener('click', async e => {
+          e.currentTarget.disabled = true;
+          const res = await window.dataSdk.delete(book);
+          if (!res.isOk) e.currentTarget.disabled = false;
+        });
+        bookList.appendChild(clone);
+        const liveCoverImg = wrapper.querySelector('[data-template-id="book-card-cover"]');
+        const coverUrl = normalizeCoverUrl(book.cover_url);
+        if (coverUrl) {
+          liveCoverImg.src = coverUrl;
+          liveCoverImg.alt = book.title;
+          liveCoverImg.onerror = () => {
+            liveCoverImg.onerror = null;
+            liveCoverImg.classList.add('hidden');
+          };
+        }
+      });
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    // Visitor form
+    visitorCancelBtn.addEventListener('click', () => { visitorModal.classList.add('hidden'); pendingBook = null; });
+    visitorForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (!pendingBook) return;
+      const submitBtn = visitorForm.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      const res = await window.dataSdk.create({
+        record_type: 'visit',
+        visitor_name: document.getElementById('visitor-name-input').value.trim(),
+        visitor_class: document.getElementById('visitor-class-input').value.trim(),
+        visitor_book_title: pendingBook.title,
+        visitor_date: new Date().toISOString(),
+        title: '', author: '', year: '', category: '', drive_link: '', cover_url: '',
+        announcement_title: '', announcement_content: '', announcement_date: ''
+      });
+      submitBtn.disabled = false;
+      if (res.isOk) { window.open(pendingBook.drive_link, '_blank'); visitorModal.classList.add('hidden'); visitorForm.reset(); pendingBook = null; }
+    });
+
+    // Add book form
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      if (allData.length >= 999) { submitBtn.disabled = false; return; }
+      const bookData = {
+        record_type: 'book',
+        title: document.getElementById('book-title').value.trim(),
+        author: document.getElementById('book-author').value.trim(),
+        publisher: document.getElementById('book-publisher').value.trim(),
+        year: document.getElementById('book-year').value.trim(),
+        category: currentCategory,
+        drive_link: document.getElementById('book-link').value.trim(),
+        cover_url: normalizeCoverUrl(document.getElementById('book-cover').value.trim()),
+        visitor_name: '', visitor_class: '', visitor_book_title: '', visitor_date: '',
+        announcement_title: '', announcement_content: '', announcement_date: ''
+      };
+      const res = editingBook
+        ? await window.dataSdk.update({ ...editingBook, ...bookData })
+        : await window.dataSdk.create(bookData);
+      submitBtn.disabled = false;
+      if (res.isOk) { form.reset(); editingBook = null; }
+    });
+
+    // Data SDK
+    const handler = {
+      onDataChanged(data) {
+        allData = data;
+        updateStats();
+        renderAnnouncements();
+        if (!detailView.classList.contains('hidden')) renderBooks();
+      }
+    };
+
+    (async () => { await window.dataSdk.init(handler); })();
+  </script>
+ 
+</body></html>
