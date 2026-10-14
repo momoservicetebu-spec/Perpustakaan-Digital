@@ -585,7 +585,18 @@
 
     function renderBooks() {
       const query = bookSearchInput.value.trim().toLowerCase();
-      const filtered = books.filter(b => b.category === currentCategory && (!query || [b.title, b.author, b.publisher, b.year].some(value => (value || '').toString().toLowerCase().includes(query))));
+      
+      // FILTER YANG SUDAH DIPERBAIKI: Mengabaikan huruf besar/kecil & spasi berlebih
+      // Juga otomatis mendeteksi kolom bernama 'category' maupun 'kategori'
+      const filtered = books.filter(b => {
+          const bookCategory = (b.category || b.kategori || b.Kategori || '').toString().toLowerCase().trim();
+          const clickedCategory = (currentCategory || '').toString().toLowerCase().trim();
+          const isCategoryMatch = bookCategory === clickedCategory;
+          
+          const isQueryMatch = !query || [b.title, b.author, b.publisher, b.year].some(value => (value || '').toString().toLowerCase().includes(query));
+          
+          return isCategoryMatch && isQueryMatch;
+      });
       
       if (filtered.length === 0) { bookList.innerHTML = ''; emptyBooks.classList.remove('hidden'); return; }
       emptyBooks.classList.add('hidden');
@@ -609,9 +620,8 @@
           document.getElementById('visitor-name-input').focus();
         });
 
-        // Hapus Fitur Edit Sementara (Lebih aman diedit manual di Sheet)
         const editBtn = wrapper.querySelector('.edit-btn');
-        editBtn.remove(); // Dihapus dari UI agar sederhana
+        if(editBtn) editBtn.remove(); 
 
         // Tombol: Hapus
         const deleteBtn = wrapper.querySelector('.delete-btn');
