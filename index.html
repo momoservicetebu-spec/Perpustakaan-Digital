@@ -586,12 +586,14 @@
     function renderBooks() {
       const query = bookSearchInput.value.trim().toLowerCase();
       
-      // FILTER YANG SUDAH DIPERBAIKI: Mengabaikan huruf besar/kecil & spasi berlebih
-      // Juga otomatis mendeteksi kolom bernama 'category' maupun 'kategori'
       const filtered = books.filter(b => {
-          const bookCategory = (b.category || b.kategori || b.Kategori || '').toString().toLowerCase().trim();
+          const rawCategory = b.category || b.kategori || b.Kategori || b.Category || b['Kategori Koleksi'] || '';
+          const bookCategory = rawCategory.toString().toLowerCase().trim();
           const clickedCategory = (currentCategory || '').toString().toLowerCase().trim();
-          const isCategoryMatch = bookCategory === clickedCategory;
+          
+          const isCategoryMatch = bookCategory === clickedCategory || 
+                                  (bookCategory !== '' && clickedCategory.includes(bookCategory)) || 
+                                  (clickedCategory !== '' && bookCategory.includes(clickedCategory));
           
           const isQueryMatch = !query || [b.title, b.author, b.publisher, b.year].some(value => (value || '').toString().toLowerCase().includes(query));
           
@@ -610,9 +612,9 @@
         wrapper.querySelector('[data-template-id="book-card-title"]').textContent = book.title;
         wrapper.querySelector('[data-template-id="book-card-meta"]').textContent = `${book.author} • ${book.year || '-'}`;
         
-        // Tombol: Baca
+        // --- TOMBOL BACA ---
         const readBtn = wrapper.querySelector('.read-btn');
-        readBtn.innerHTML = 'Baca Buku'; 
+        readBtn.innerHTML = 'Baca'; 
         readBtn.className = "canva-button flex items-center gap-1 px-4 py-2 bg-amber-600 text-white rounded-lg font-medium text-sm";
         readBtn.addEventListener('click', () => {
           pendingBook = book;
@@ -620,14 +622,50 @@
           document.getElementById('visitor-name-input').focus();
         });
 
+        // --- TOMBOL EDIT (Muncul saat mode Admin) ---
         const editBtn = wrapper.querySelector('.edit-btn');
-        if(editBtn) editBtn.remove(); 
+        if(editBtn) {
+            editBtn.innerHTML = 'Edit';
+            editBtn.className = "canva-button edit-btn flex items-center gap-1 px-3 py-2 bg-stone-200 text-stone-800 rounded-lg font-medium text-sm";
+            
+            // Atur visibilitas berdasarkan status Admin
+            if (isAdminMode) {
+                editBtn.classList.remove('hidden');
+            } else {
+                editBtn.classList.add('hidden');
+            }
 
-        // Tombol: Hapus
+            // Logika saat tombol Edit diklik
+            editBtn.addEventListener('click', () => {
+                editingBook = book; // Tandai buku yang sedang diedit
+                
+                // Isi form dengan data buku lama
+                document.getElementById('book-title').value = book.title || '';
+                document.getElementById('book-author').value = book.author || '';
+                document.getElementById('book-publisher').value = book.publisher || '';
+                document.getElementById('book-year').value = book.year || '';
+                document.getElementById('book-link').value = book.drive_link || '';
+                document.getElementById('book-cover').value = book.cover_url || '';
+                
+                // Ubah teks tombol submit form
+                const submitBtn = form.querySelector('button[type="submit"]');
+                if(submitBtn) submitBtn.textContent = "Update Buku";
+                
+                // Scroll ke atas (ke arah form)
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                document.getElementById('book-title').focus();
+            });
+        }
+
+        // --- TOMBOL HAPUS (Muncul saat mode Admin) ---
         const deleteBtn = wrapper.querySelector('.delete-btn');
         deleteBtn.innerHTML = 'Hapus';
-        deleteBtn.className = "canva-button delete-btn flex items-center gap-1 px-3 py-2 bg-red-600 text-white rounded-lg font-medium text-sm";
-        if (isAdminMode) deleteBtn.classList.remove('hidden');
+        deleteBtn.className = "canva-button delete-btn flex items-center gap-1 px-3 py-2 bg-red-100 text-red-600 rounded-lg font-medium text-sm";
+        if (isAdminMode) {
+            deleteBtn.classList.remove('hidden');
+        } else {
+            deleteBtn.classList.add('hidden');
+        }
         
         deleteBtn.addEventListener('click', async e => {
           if(!confirm("Yakin ingin menghapus buku ini?")) return;
@@ -683,7 +721,7 @@
       loadData(); // Segarkan data leaderboard
     });
 
-    // TAMBAH BUKU BARU
+    // TAMBAH ATAU UPDATE BUKU
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const submitBtn = form.querySelector('button[type="submit"]');
@@ -700,20 +738,27 @@
         cover_url: normalizeCoverUrl(document.getElementById('book-cover').value.trim())
       };
 
-      // Kirim data buku ke Server GAS
-      const success = await sendDataToGAS('addBook', payload);
+      let success = false;
+      if (editingBook) {
+          // Jika sedang mode edit, kirim ID buku lama beserta data barunya
+          payload.id = editingBook.id;
+          // Ganti 'updateBook' dengan action yang sesuai di backend Google Apps Script Anda
+          success = await sendDataToGAS('updateBook', payload); 
+      } else {
+          // Jika buku baru
+          success = await sendDataToGAS('addBook', payload);
+      }
+
       if (success) {
           form.reset();
+          editingBook = null; // Kembalikan status edit menjadi kosong
+          submitBtn.textContent = "Tambah Buku"; // Kembalikan teks tombol
           loadData(); 
+      } else {
+          submitBtn.disabled = false;
+          submitBtn.textContent = editingBook ? "Update Buku" : "Tambah Buku";
       }
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Tambah Buku";
     });
-
-    // Panggil loadData() untuk memuat database Excel Anda yang lama secara otomatis
-    window.onload = () => {
-        loadData();
-    };
 
   </script>
  
