@@ -1,5 +1,4 @@
-<script>
-    if (window.lucide) window.lucide.createIcons();
+ if (window.lucide) window.lucide.createIcons();
 
     // ==========================================
     // KONFIGURASI API GOOGLE APPS SCRIPT
@@ -404,4 +403,3 @@
         loadDataFromDatabase();
     };
 
-  </script>
